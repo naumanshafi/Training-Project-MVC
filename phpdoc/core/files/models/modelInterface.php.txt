@@ -1,0 +1,42 @@
+<?php
+/**
+ * This File Implements modelInterface for MVC
+ *
+ */
+namespace core\models;
+
+/**
+ * This Class Implements modelInterface for MVC
+ *
+ */
+interface modelInterface
+{
+    /**
+     * Function to be implemented by sub-classes.
+     *
+     * @return null
+     */
+    public function add();
+
+    /**
+     * Function to be implemented by sub-classes.
+     *
+     * @return null
+     */
+    public function update();
+
+    /**
+     * Function to be implemented by sub-classes.
+     *
+     * @return null
+     */
+    public function delete();
+
+    /**
+     * Function to be implemented by sub-classes.
+     *
+     * @return null
+     */
+    public function select();
+
+}

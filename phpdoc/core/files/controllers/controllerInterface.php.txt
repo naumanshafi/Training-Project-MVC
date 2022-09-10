@@ -1,0 +1,42 @@
+<?php
+/**
+ * This File Implements Controllerinterface for MVC
+ *
+ */
+namespace core\controllers;
+
+/**
+ * This Class Implements Controllerinterface for MVC
+ *
+ */
+interface controllerInterface
+{
+    /**
+     * Function to be implemented by sub-classes.
+     *
+     * @return null
+     */
+    public function add();
+
+    /**
+     * Function to be implemented by sub-classes.
+     *
+     * @return null
+     */
+    public function update();
+
+    /**
+     * Function to be implemented by sub-classes.
+     *
+     * @return null
+     */
+    public function delete();
+
+    /**
+     * Function to be implemented by sub-classes.
+     *
+     * @return null
+     */
+    public function select();
+}
+

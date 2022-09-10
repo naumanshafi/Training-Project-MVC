@@ -1,0 +1,82 @@
+<?php
+/**
+ *  viewManagerTest is Test File.
+ *
+ */
+use PHPUnit\Framework\TestCase;
+
+/**
+ *  viewManagerTest is Test Class.
+ *
+ */
+class viewManagerTest extends TestCase
+{
+    /**
+     * function testadd.
+     * @return null
+     */
+    public function testadd()
+    {
+        $req=\core\request::getinstance();
+        $req->setController("studentController");
+        $req->setAction('add');
+        $obj = new core\views\viewManager();
+        $this->assertSame($obj->render(''), true);
+    }
+
+    /**
+     * function testdelete.
+     * @return null
+     */
+    public function testdelete()
+    {
+        $req=\core\request::getinstance();
+        $req->setController("studentController");
+        $req->setAction('delete');
+        $obj = new core\views\viewManager();
+        $this->assertSame($obj->render(''), true);
+    }
+
+    /**
+     * function testselect.
+     * @return null
+     */
+    public function testselect()
+    {
+        $req=\core\request::getinstance();
+        $req->setController("studentController");
+        $req->setAction('select');
+        $obj = new core\views\viewManager();
+        $this->assertSame($obj->render(false), true);
+    }
+
+    /**
+     * function testupdate.
+     * @return null
+     */
+    public function testupdate()
+    {
+        $req=\core\request::getinstance();
+        $req->setController("studentController");
+        $req->setAction('select');
+        $obj = new core\views\viewManager();
+        $this->assertSame($obj->render(false), true);
+    }
+
+    /**
+     * function testpath.
+     * @return null
+     */
+    public function testpath()
+    {
+        $querydriver = $this->getMockBuilder(\core\request::class)->setMethods(array('getController','getAction'))->disableOriginalConstructor()->getMock();
+        $querydriver->expects($this->once())->method('getController')
+            ->will($this->returnValue('studentController'));
+        $querydriver->expects($this->once())->method('getAction')
+            ->will($this->returnValue('add'));
+        $obj = new core\views\viewManager();
+        $obj->setRequestobj($querydriver);
+        $this->assertSame($obj->path(), "/var/www/html/Training_Project/app/views/student/add.php");
+    }
+
+}

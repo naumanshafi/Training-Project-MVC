@@ -1,0 +1,93 @@
+<?php
+/**
+ * This File Implements teacherentity for MVC
+ *
+ */
+namespace app\models\metadata;
+
+/**
+ * This class Implements teacherentity for MVC
+ *
+ */
+class teacherEntity
+{
+    /**
+     * class variable
+     *
+     * @var string $tablename
+     */
+    private $tablename;
+    /**
+     * class variable
+     *
+     * @var string $id
+     */
+    private $id;
+    /**
+     * class variable
+     *
+     * @var string $f_name
+     */
+    private $f_name;
+    /**
+     * class variable
+     *
+     * @var string $l_name
+     */
+    private $l_name;
+    /**
+     * class variable
+     *
+     * @var string $age
+     */
+    private $age;
+    /**
+     * class variable
+     *
+     * @var string $contact
+     */
+    private $contact;
+    /**
+     * class variable
+     *
+     * @var string $department
+     */
+    private $department;
+    /**
+     * class variable
+     *
+     * @var array $db
+     */
+    private $db;
+
+    /**
+     * studentEntity constructor.
+     */
+    public function __construct()
+    {
+        $this->tablename="teacher";
+        $this->db = array("id","f_name","l_name", "age","department","contact");
+    }
+
+    /**
+     * Function getAttribute for MVC
+     * @param string $name
+     * @return null
+     */
+    public function getAttribute($name)
+    {
+        return $this->$name;
+    }
+
+    /**
+     * Function setAttribute for MVC
+     * @param string $name
+     * @param string $val
+     * @return null
+     */
+    public function setAttribute($name, $val)
+    {
+        $this->$name = $val;
+    }
+
+}

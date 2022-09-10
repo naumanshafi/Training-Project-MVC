@@ -1,0 +1,93 @@
+<?php
+/**
+ *  baseModelTest Class.
+ *
+ */
+use PHPUnit\Framework\TestCase;
+
+
+/**
+ * This class Implements basemodel Testing
+ *
+ */
+class baseMmodelTest extends TestCase
+{
+    /**
+     * function testadd.
+     * @return null
+     */
+    public function testadd()
+    {
+        $entity = new \app\models\metadata\studentEntity();
+        $querybuilder = $this->getMockBuilder('query_builder')->setMethods(array('add'))->getMock();
+        $querybuilder->expects($this->once())->method('add')
+            ->with($entity)->will($this->returnValue("INSERT INTO student (id, f_name, l_name, age, contact, major) VALUES ('1', 'Moiz', 'Farasat', '23', '03224', 'CS')"));
+        $querydriver = $this->getMockBuilder(\core\models\database\drivers\mysqli\mysqli_driver::class)->setMethods(array('execute'))->disableOriginalConstructor()->getMock();
+        $querydriver->expects($this->once())->method('execute')
+            ->with("INSERT INTO student (id, f_name, l_name, age, contact, major) VALUES ('1', 'Moiz', 'Farasat', '23', '03224', 'CS')")->will($this->returnValue(true));
+        $obj = new \app\models\student();
+        $obj->setQueryBuilder($querybuilder);
+        $obj->setSqliDriver($querydriver);
+        $this->assertSame(true, $obj->add());
+    }
+
+    /**
+     * function testupdate.
+     * @return null
+     */
+    public function testupdate()
+    {
+        $entity = new \app\models\metadata\studentEntity();
+        $querybuilder = $this->getMockBuilder('query_builder')->setMethods(array('update'))->getMock();
+        $querybuilder->expects($this->once())->method('update')
+            ->with($entity)->will($this->returnValue("UPDATE student SET id ='121', f_name ='Moiz', l_name ='Ahmed', age ='23', contact ='0322', major ='CS' WHERE id = 121"));
+        $querydriver = $this->getMockBuilder(\core\models\database\drivers\mysqli\mysqli_driver::class)->setMethods(array('execute'))->disableOriginalConstructor()->getMock();
+        $querydriver->expects($this->once())->method('execute')
+            ->with("UPDATE student SET id ='121', f_name ='Moiz', l_name ='Ahmed', age ='23', contact ='0322', major ='CS' WHERE id = 121")->will($this->returnValue(true));
+        $obj = new \app\models\student();
+        $obj->setQueryBuilder($querybuilder);
+        $obj->setSqliDriver($querydriver);
+        $this->assertSame(true, $obj->update());
+    }
+
+    /**
+     * function testdelete.
+     * @return null
+     */
+    public function testdelete()
+    {
+        $entity = new \app\models\metadata\studentEntity();
+        $querybuilder = $this->getMockBuilder('query_builder')->setMethods(array('delete'))->getMock();
+        $querybuilder->expects($this->once())->method('delete')
+            ->with($entity)->will($this->returnValue("DELETE FROM student where id ='121'"));
+        $querydriver = $this->getMockBuilder(\core\models\database\drivers\mysqli\mysqli_driver::class)->setMethods(array('execute'))->disableOriginalConstructor()->getMock();
+        $querydriver->expects($this->once())->method('execute')
+            ->with("DELETE FROM student where id ='121'")->will($this->returnValue(true));
+        $obj = new \app\models\student();
+        $obj->setQueryBuilder($querybuilder);
+        $obj->setSqliDriver($querydriver);
+        $this->assertSame(true, $obj->delete());
+    }
+
+    /**
+     * function testselect.
+     * @return null
+     */
+    public function testselect()
+    {
+        $entity = new \app\models\metadata\studentEntity();
+        $querybuilder = $this->getMockBuilder('query_builder')->setMethods(array('select'))->getMock();
+        $querybuilder->expects($this->once())->method('select')
+            ->with($entity)->will($this->returnValue("Select * FROM student where id ='121'"));
+        $querydriver = $this->getMockBuilder(\core\models\database\drivers\mysqli\mysqli_driver::class)->setMethods(array('execute'))->disableOriginalConstructor()->getMock();
+        $querydriver->expects($this->once())->method('execute')
+            ->with("Select * FROM student where id ='121'")->will($this->returnValue(true));
+        $obj = new \app\models\student();
+        $obj->setQueryBuilder($querybuilder);
+        $obj->setSqliDriver($querydriver);
+        $this->assertSame(true, $obj->select());
+    }
+}
+
+
+

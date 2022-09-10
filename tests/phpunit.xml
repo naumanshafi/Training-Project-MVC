@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="bootstrap.php"
+         colors="true"
+         verbose="true"
+         failOnRisky="true"
+         failOnWarning="true">
+        <testsuites>
+                <testsuite name="unit">
+                        <directory>./core</directory>
+                </testsuite>
+
+        </testsuites>
+
+        <filter>
+                <whitelist processUncoveredFilesFromWhitelist="true">
+                        <directory suffix=".php">../core</directory>
+                </whitelist>
+        </filter>
+        <php>
+                <const name="PHPUNIT_TESTSUITE" value="true"/>
+        </php>
+</phpunit>

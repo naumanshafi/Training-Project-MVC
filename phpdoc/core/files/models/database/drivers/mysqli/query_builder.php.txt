@@ -1,0 +1,106 @@
+<?php
+/**
+ * This File Implements query_builder for MVC
+ *
+ */
+namespace core\models\database\drivers\mysqli;
+
+use app\models\metadata\studentEntity;
+
+/**
+ * This Class Implements query builder for MVC
+ *
+ */
+class query_builder
+{
+    /**
+     * query_builder constructor.
+     */
+    public function __construct(){}
+
+    /**
+     * function that will make query for insert.
+     * @param string $type
+     * @return string
+     */
+    public function add($type)
+    {
+        if (gettype($type)=='object') {
+            $query = "INSERT INTO ". $type->getAttribute('tablename')." (";
+            $querys = " VALUES (";
+            $size = count($type->getAttribute('db'));
+            $i = 0;
+            foreach ($type->getAttribute('db') as $x => $x_value) {
+                if ($i == $size - 1) {
+                    $query = $query . $x_value;
+                    $querys = $querys . "'" . $type->getAttribute($x_value) . "'";
+                } else {
+                    $query = $query . $x_value . ", ";
+                    $querys = $querys . "'" . $type->getAttribute($x_value) . "'" . ", ";
+
+                }
+                $i++;
+            }
+            $query = $query . ')';
+            $querys = $querys . ')';
+            return $query . $querys;
+        }
+        return "Entity not Found" ;
+    }
+
+    /**
+     * function that will make query for update.
+     * @param string $type
+     * @return string
+     */
+    public function update($type)
+    {
+        if (gettype($type)=='object') {
+            $query="UPDATE ".$type->getAttribute('tablename'). " SET ";
+            $size = count($type->getAttribute('db'));
+            $i = 0;
+            foreach( $type->getAttribute('db') as $x => $x_value) {
+                if ($i==$size-1) {
+                        $query = $query . $x_value . " =" . "'" .  $type->getAttribute($x_value) . "'" . " WHERE id = $type->id";
+                }
+                else {
+                        $query = $query . $x_value . " =" . "'" .  $type->getAttribute($x_value) . "'" . ", ";
+                }
+                $i++;
+            }
+            return $query;
+        }
+        return "Entity not Found" ;
+    }
+
+    /**
+     * function that will make query for delete.
+     * @param string $type
+     * @return string
+     */
+    public function delete($type)
+    {
+        if (gettype($type)=='object') {
+            $query="DELETE FROM ".$type->getAttribute('tablename'). " where id ="."'".$type->getAttribute('id')."'";
+            return $query;
+        }
+        return "Entity not Found" ;
+    }
+
+    /**
+     * function that will make query for select.
+     * @param string $type
+     * @return string
+     */
+    public function select($type)
+    {
+        if (gettype($type)=='object') {
+            if ($type->getAttribute('id'))
+                $query="Select * FROM ".$type->getAttribute('tablename'). " where id ="."'".$type->getAttribute('id')."'";
+            else
+                $query="Select * FROM ".$type->getAttribute('tablename');
+            return $query;
+        }
+        return "Entity not Found" ;
+    }
+}

@@ -1,0 +1,82 @@
+<?php
+/**
+ * This File Implements courseentity for MVC
+ *
+ */
+namespace app\models\metadata;
+
+/**
+ * This class Implements courseEntity for MVC
+ *
+ */
+class courseEntity
+{
+    /**
+     * class variable
+     *
+     * @var string $tablename
+     */
+    public $tablename;
+    /**
+     * class variable
+     *
+     * @var string $id
+     */
+    public $id;
+    /**
+     * class variable
+     *
+     * @var string $name
+     */
+    public $name;
+    /**
+     * class variable
+     *
+     * @var string $hours
+     */
+    public $hours;
+    /**
+     * class variable
+     *
+     * @var string $type
+     */
+    public $type;
+    /**
+     * class variable
+     *
+     * @var array $db
+     */
+    public $db;
+
+    /**
+     * studentEntity constructor.
+     */
+    public function __construct()
+    {
+        $this->tablename="course";
+        $this->db = array("id","name", "hours","type");
+    }
+
+    /**
+     * Function getAttribute for MVC
+     * @param string $name
+     * @return null
+     */
+    public function getAttribute($name)
+    {
+        return $this->$name;
+    }
+
+    /**
+     * Function setAttribute for MVC
+     * @param string $name
+     * @param string $val
+     * @return null
+     */
+    public function setAttribute($name, $val)
+    {
+        $this->$name = $val;
+    }
+
+
+}

@@ -1,0 +1,130 @@
+<?php
+/**
+ * This File Implements mysqli_driver for MVC
+ *
+ */
+namespace core\models\database\drivers\mysqli;
+
+/**
+ * This Class Implements mysqli_driver for MVC
+ *
+ */
+class mysqli_driver
+{
+    /**
+     * class variable
+     *
+     * @var $conn
+     */
+    private $conn;
+    /**
+     * class variable
+     *
+     * @var  $servername
+     */
+    private $servername;
+    /**
+     * class variable
+     *
+     * @var $username
+     */
+    private $username ;
+    /**
+     * class variable
+     *
+     * @var $password
+     */
+    private $password ;
+    /**
+     * class variable
+     *
+     * @var $dbname
+     */
+    private $dbname;
+    /**
+     * class variable
+     *
+     * @var static $database_object
+     */
+    private static $database_object;
+
+    /**
+     * mysqli_driver constructor.
+     */
+    private function __construct(){
+        $this->servername= 'localhost';
+        $this->username = "root";
+        $this->password = "123";
+        $this->dbname = "myphp";
+        $this->connect();
+
+    }
+
+    /**
+     * function clone.
+     * @return null
+     */
+    private function __clone(){}
+
+    /**
+     * function __wakeup.
+     * @return null
+     */
+    private function __wakeup(){}
+
+    /**
+     * function __sleep.
+     * @return null
+     */
+    private function __sleep(){}
+
+    /**
+     * function getInstance.
+     * @return object
+     */
+    public static function getInstance()
+    {
+        if (!isset(self::$database_object)) {
+            self::$database_object = new mysqli_driver();
+        }
+        return self::$database_object;
+    }
+
+    /**
+     * function connect.
+     * @return null
+     */
+    public function connect()
+    {
+        $this->conn = new \mysqli($this->servername, $this->username, $this->password,$this->dbname);
+        if ($this->conn->connect_error) {
+            die("Connection is  failed: " . $this->conn->connect_error);
+        }
+        else
+            echo "Connection Created";
+
+    }
+
+    /**
+     * function disconnect.
+     * @return null
+     */
+    public function disconnect()
+    {
+        mysqli_close($this->conn);
+    }
+
+    /**
+     * function disconnect.
+     * @param string $sql_query
+     * @return mixed
+     */
+    public function execute($sql_query)
+    {
+        $result = $this->conn->query($sql_query);
+        echo  $this->conn->affected_rows;
+        if ($this->conn->affected_rows==0)
+            return false;
+        return $result;
+    }
+}

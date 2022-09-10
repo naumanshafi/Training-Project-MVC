@@ -1,0 +1,124 @@
+<?php
+/**
+ * This File Implements model for MVC
+ *
+ */
+namespace core\models;
+
+use core\models\database\drivers\mysqli\query_builder;
+use core\request;
+use core\models\database\drivers\mysqli;
+
+/**
+ * This Class Implements baseModel for MVC
+ *
+ */
+class baseModel implements modelInterface
+{
+    /**
+     * class variable
+     *
+     * @var query_builder $query_builder
+     */
+    protected $query_builder;
+    /**
+     * class variable
+     *
+     * @var  $Entity
+     */
+    protected $Entity;
+
+    /**
+     * baseModel constructor.
+     * @param $entity
+     */
+    public function __construct($entity)
+    {
+        $classname = "\\app\\models\\metadata\\".$entity;
+        $this->Entity = new $classname();
+        $this->query_builder= new query_builder();
+    }
+
+    /**
+     * function that will set request.
+     * @param query_builder $query_builder
+     * @return null
+     */
+    public function setQueryBuilder($query_builder)
+    {
+        $this->query_builder = $query_builder;
+    }
+
+    /**
+     * Getter for Entity
+     * @return mixed
+     */
+    public function getEntity()
+    {
+        return $this->Entity;
+    }
+
+    /**
+     * Set Entity Function
+     * @param mixed $Entity
+     * @return null
+     */
+    public function setEntity($Entity)
+    {
+        $this->Entity = $Entity;
+    }
+
+    /**
+     * Add Action
+     *
+     * @return bool
+     */
+    public function add()
+    {
+        $querystring=$this->query_builder->add($this->Entity);
+        if (mysqli\mysqli_driver::getInstance()->execute($querystring)==True) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * update Action
+     *
+     * @return bool
+     */
+    public function update()
+    {
+        $querystring=$this->query_builder->update($this->Entity);
+        if (mysqli\mysqli_driver::getInstance()->execute($querystring)==True) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * delete Action
+     *
+     * @return bool
+     */
+    public function delete()
+    {
+        $querystring=$this->query_builder->delete($this->Entity);
+        if (mysqli\mysqli_driver::getInstance()->execute($querystring)==True) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * select Action
+     *
+     * @return mixed
+     */
+    public function select()
+    {
+        $querystring = $this->query_builder->select($this->Entity);
+        $result = mysqli\mysqli_driver::getInstance()->execute($querystring);
+        return $result;
+    }
+}

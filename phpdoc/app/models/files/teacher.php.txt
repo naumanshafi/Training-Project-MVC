@@ -1,0 +1,31 @@
+<?php
+/**
+ * This File Implements teacher for MVC
+ *
+ */
+namespace app\models;
+
+use app\models\metadata\teacherEntity;
+use core\models\baseModel;
+
+/**
+ * This class Implements teacher for MVC
+ *
+ */
+class teacher extends baseModel
+{
+    /**
+     * class variable
+     *
+     * @var teacherEntity $teacherEntity
+     */
+    public $teacherEntity;
+
+    /**
+     * student constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct('teacherEntity');
+    }
+}

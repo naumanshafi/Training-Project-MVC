@@ -1,0 +1,21 @@
+<?php
+/**
+ * This File Implements studentController for MVC
+ *
+ */
+namespace app\controllers;
+
+/**
+ * This class Implements studentController for MVC
+ *
+ */
+class studentController extends \core\controllers\baseController
+{
+    /**
+     * studentController constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+    }
+}

@@ -1,0 +1,45 @@
+<?php
+/**
+ * This File Implements Dispatcher for MVC
+ *
+ */
+namespace core;
+
+use core\controllers\controllerFactory;
+
+/**
+ *  Dispatcher Class called by index
+ *
+ */
+class dispatcher
+{
+
+    /**
+     * dispatcher constructor.
+     */
+    public function __construct(){}
+
+    /**
+     * function that will set request.
+     * @return bool
+     */
+    public function setrequest()
+    {
+        $request = \core\request::getinstance();
+        $request->setter ();
+        return true ;
+    }
+
+    /**
+     * function that will set controller.
+     * @return bool
+     */
+    public function setcontroller()
+    {
+        $obj = new controllerFactory;
+        $controller=$obj->factorymethod(request::getinstance()->getController());
+        $controller->call_action(request::getinstance()->getAction());
+        return true;
+    }
+}
+

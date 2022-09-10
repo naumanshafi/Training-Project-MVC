@@ -1,0 +1,39 @@
+<?php
+/**
+ *  dispatcherTest File.
+ *
+ */
+use PHPUnit\Framework\TestCase;
+
+/**
+ * This File Implements dispatcher Testing
+ *
+ */
+class dispatcherTest extends TestCase
+{
+    /**
+     * function testsetcontroller.
+     * @return null
+     */
+    public function testsetcontroller()
+    {
+        $obj = \core\request::getinstance();
+        $dispatcher = new \core\dispatcher();
+        $obj->setAction("add");
+        $obj->setController("studentController");
+        $dispatcher->setcontroller();
+        $this->assertSame($dispatcher->setcontroller(), true);
+    }
+
+    /**
+     * function testsetrequest.
+     * @return null
+     */
+    public function testsetrequest()
+    {
+        $_SERVER["REQUEST_METHOD"]='';
+        $dispatcher = new \core\dispatcher();
+        $this->assertSame($dispatcher->setrequest(), true);
+    }
+
+}

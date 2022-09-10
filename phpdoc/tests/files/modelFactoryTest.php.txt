@@ -1,0 +1,35 @@
+<?php
+/**
+ *  modelFactoryTest File.
+ *
+ */
+use PHPUnit\Framework\TestCase;
+
+/**
+ *  modelFactoryTest Class.
+ *
+ */
+class modelFactoryTest extends TestCase
+{
+    /**
+     * function testvalidfactorymethod.
+     * @return null
+     */
+    public function testvalidfactorymethod()
+    {
+        \core\request::getinstance()->setController('studentController');
+        $obj= new \core\models\modelFactory();
+        $obj= $obj->factorymethod('student');
+        $this->assertInstanceOf(\app\models\student::class, $obj);
+    }
+    /**
+     * function testinvalidfactorymethod.
+     * @return null
+     */
+   public function testinvalidfactorymethod()
+    {
+        $obj= new \core\models\modelFactory();
+        $obj= $obj->factorymethod('studentsssad');
+        $this->assertSame($obj,false );
+    }
+}

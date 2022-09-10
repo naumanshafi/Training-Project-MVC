@@ -1,0 +1,180 @@
+<?php
+/**
+ * This File Implements Controller for MVC
+ *
+ */
+namespace core\controllers;
+
+use core\controllers\controllerInterface;
+use core\models\baseModel;
+use core\models\modelFactory;
+use core\request;
+use core\views\viewManager;
+use phpDocumentor\Reflection\DocBlock\Tags\Var_;
+
+/**
+ * Simple BaseController Class for implementing MVC
+ *
+ */
+class baseController implements controllerInterface
+{
+    /**
+     * class variable
+     *
+     * @var viewManager $viewhandler
+     */
+    protected $viewhandler;
+    /**
+     * class variable
+     *
+     * @var baseModel $model
+     */
+    protected $model;
+    /**
+     * class variable
+     *
+     * @var modelFactory $modelfactory
+     */
+    protected $modelfactory;
+
+    /**
+     * baseController constructor.
+     * @param $viewhandler
+     */
+    public function __construct()
+    {
+        $this->viewhandler = new viewManager();
+    }
+
+    /**
+     * Add Action
+     *
+     * @return null
+     */
+    public function add()
+    {
+        if (empty(request::getinstance()->getParams())) {
+            $this->viewhandler->render("");
+        }
+        else {
+            $this->Initalizemodelandmapper();
+            if ($this->model->add())
+                $this->viewhandler->render("SuccessFully Updated");
+            else
+                $this->viewhandler->render("Query Failed");
+        }
+    }
+
+    /**
+     * Function update Action
+     *
+     * @return null
+     */
+    public function update()
+    {
+        echo "Moiz Ahmed:::1";
+        if (empty(request::getinstance()->getParams())) {
+            $this->viewhandler->render('');
+        }
+        else if (sizeof(request::getinstance()->getParams())==1) {
+            $this->Initalizemodelandmapper();
+            $result = $this->model->select();
+            $this->viewhandler->render($result);
+        }
+        else if (sizeof(request::getinstance()->getParams())>1) {
+            $this->Initalizemodelandmapper();
+            $result = $this->model->update();
+            $this->viewhandler->render($result);
+        }
+    }
+
+    /**
+     * Mapper for mapping
+     *
+     * @return null
+     */
+    public function mapper()
+    {
+        $p = Request::getInstance()->getParams();
+        $e = $this->model->getEntity();
+        $fields = $e->getAttribute("db");
+        foreach($fields as $key)
+        {
+            if (isset(request::getinstance()->getParams()[$key]))
+                $e->setAttribute($key, $p[$key]);
+        }
+        return true;
+    }
+
+    /**
+     * Function delete Action
+     *
+     * @return null
+     */
+    public function delete()
+    {
+        if (empty(request::getinstance()->getParams())) {
+            $this->viewhandler->render("");
+        }
+        else {
+            $this->Initalizemodelandmapper();
+            if ($this->model->delete())
+                $this->viewhandler->render("SuccessFully Deleted");
+            else
+                $this->viewhandler->render("Error Please Check ID");
+        }
+    }
+
+    /**
+     * Function select Action
+     *
+     * @return null
+     */
+    public function select()
+    {
+        $this->Initalizemodelandmapper();
+        $result=$this->model->select();
+        $this->viewhandler->render($result);
+    }
+
+    /**
+     * Function home Action
+     *
+     * @return null
+     */
+    public function home()
+    {
+        $this->viewhandler->home();
+    }
+
+    /**
+     * Function Initalizemodelandmapper
+     *
+     * @return null
+     */
+    public function Initalizemodelandmapper()
+    {
+        $this->modelfactory = new modelFactory();
+        $str = request::getinstance()->getController();
+        $str_arr = explode ("Controller", $str);
+        echo "<br>";
+        $this->model=$this->modelfactory->factorymethod($str_arr[0]);
+        $this->mapper();
+    }
+
+    /**
+     * Function call_action for MVC
+     * @param string $action
+     * @return null
+     */
+    public function call_action($action)
+    {
+        if ($action=='') {
+            $this->home();
+        }
+        else {
+            $this->$action();
+        }
+    }
+}
+

@@ -1,0 +1,7 @@
+<IfModule mod_rewrite.c>
+ Options -Multiviews
+ RewriteEngine On
+ RewriteBase /Training_Project/public
+ RewriteRule  ^(.+)$ index.php
+</IfModule>
+

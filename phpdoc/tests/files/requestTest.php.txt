@@ -1,0 +1,25 @@
+<?php
+/**
+ *  requestTest is  Test FIle.
+ *
+ */
+use PHPUnit\Framework\TestCase;
+
+/**
+ *  requestTest is  Test class.
+ *
+ */
+class requestTest extends TestCase
+{
+    /**
+     * function testsetrequest.
+     * @return null
+     */
+    public function testgetinstance()
+    {
+        $obj = \core\request::getinstance();
+        $obj1= \core\request::getinstance();
+        $this->assertSame($obj, $obj1);
+    }
+
+}

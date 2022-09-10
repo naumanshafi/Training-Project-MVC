@@ -1,0 +1,29 @@
+<?php
+/**
+ * This File Implements ControllerFactory for MVC
+ *
+ */
+namespace core\controllers;
+
+/**
+ * ControllerFactory for Controllers
+ *
+ */
+class controllerFactory
+{
+    /**
+     * Function factorymethod for Creating Objects
+     * @param string $action
+     * @return mixed
+     */
+    public function factorymethod($type)
+    {
+        $type = "\\app\\controllers\\$type";
+        echo $type;
+        if (get_parent_class($type) == 'core\controllers\baseController') {
+            return new $type();
+        }
+        return false;
+    }
+}
+

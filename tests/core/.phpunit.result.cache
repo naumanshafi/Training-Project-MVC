@@ -1,0 +1,1 @@
+C:37:"PHPUnit\Runner\DefaultTestResultCache":182:{a:2:{s:7:"defects";a:1:{s:33:"dispatcherTest::testsetcontroller";i:4;}s:5:"times";a:2:{s:28:"requestTest::testgetinstance";d:0.002;s:33:"dispatcherTest::testsetcontroller";d:0.013;}}}

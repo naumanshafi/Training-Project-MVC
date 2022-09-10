@@ -1,0 +1,22 @@
+<?php
+/**
+ * This File Implements homeController for MVC
+ *
+ */
+namespace app\controllers;
+
+/**
+ * This class Implements homeController for MVC
+ *
+ */
+class homeController extends \core\controllers\baseController
+{
+    /**
+     * homeController constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+    }
+}
+

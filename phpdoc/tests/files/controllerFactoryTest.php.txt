@@ -1,0 +1,35 @@
+<?php
+/**
+ * This File Implements controllerFactoryTest for MVC
+ *
+ */
+use PHPUnit\Framework\TestCase;
+
+/**
+ * This class Implements controllerFactoryTest for MVC
+ *
+ */
+class controllerFactoryTest extends TestCase
+{
+    /**
+     * function testvalidfactorymethod.
+     * @return null
+     */
+    public function testvalidfactorymethod()
+    {
+      $obj= new \core\controllers\controllerFactory();
+      $obj= $obj->factorymethod('studentController');
+      $this->assertInstanceOf(\app\controllers\studentController::class, $obj);
+    }
+
+    /**
+     * function testinvalidfactorymethod.
+     * @return null
+     */
+    public function testinvalidfactorymethod()
+    {
+        $obj= new \core\controllers\controllerFactory();
+        $obj= $obj->factorymethod('abcCOntroller');
+        $this->assertSame($obj,false );
+    }
+}

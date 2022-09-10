@@ -1,0 +1,31 @@
+<?php
+/**
+ * This File Implements student for MVC
+ *
+ */
+namespace app\models;
+
+use app\models\metadata\studentEntity;
+use core\models\baseModel;
+
+/**
+ * This class Implements student for MVC
+ *
+ */
+class student extends baseModel
+{
+    /**
+     * class variable
+     *
+     * @var studentEntity $studentEntity
+     */
+    public $studentEntity;
+
+    /**
+     * student constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct('studentEntity');
+    }
+}

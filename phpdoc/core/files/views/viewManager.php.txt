@@ -1,0 +1,79 @@
+<?php
+/**
+ * This File Implements viewManager for MVC
+ *
+ */
+namespace core\views;
+
+use core\request;
+
+/**
+ * This Class Implements viewManager for MVC
+ *
+ */
+class viewManager
+{
+    /**
+     * viewManager constructor.
+     */
+    public function __construct()
+    {
+        echo 'COnstrucote';
+    }
+
+    /**
+     * function that will render
+     * @param string $result
+     * @return bool
+     */
+    public function render($result)
+    {
+
+        //ob_clean();
+        $phppath = $this->path();
+        //ob_start();
+        include $phppath;
+        return true;
+        //ob_start();
+        //ob_clean();
+    }
+
+    /**
+     * function that will render home
+     * @return bool
+     */
+    public function home()
+    {
+        //ob_start();
+        require "../app/views/home/home.php";
+        //ob_clean();
+        return true;
+    }
+
+    /**
+     * function that will make path
+     * @return string
+     */
+    public function path()
+    {
+        $extension = "php";
+        $request=request::getinstance();
+        $str = $request->getController();
+        $str_arr = explode ("Controller", $str);
+        $fileName = $request->getAction();
+        $fileNameWithExtension = "$fileName.$extension";
+        $path="/var/www/html/Training_Project/app/views/$str_arr[0]/$fileNameWithExtension";
+        return $path;
+    }
+
+    /**
+     * function that will make path
+     * @param string $msg
+     * @return null
+     */
+    function alert($msg)
+    {
+        echo "<script type='text/javascript'>alert('$msg');</script>";
+    }
+
+}

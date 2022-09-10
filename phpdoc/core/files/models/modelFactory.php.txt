@@ -1,0 +1,35 @@
+<?php
+/**
+ * This File Implements modelfactory for MVC
+ *
+ */
+namespace core\models;
+
+/**
+ * This Class Implements modelFactory for MVC
+ *
+ */
+class modelFactory
+{
+    /**
+     * modelFactory constructor.
+     */
+    public function __construct()
+    {
+    }
+
+    /**
+     * Function factorymethod for Creating Objects
+     * @param string $action
+     * @return mixed
+     */
+    public function factorymethod($type)
+    {
+        $type = "\\app\\models\\$type";
+        echo $type;
+        if (get_parent_class($type) == 'core\models\baseModel') {
+            return new $type();
+        }
+        return false;
+    }
+}

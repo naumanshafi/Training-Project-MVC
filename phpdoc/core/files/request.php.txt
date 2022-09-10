@@ -1,0 +1,166 @@
+<?php
+/**
+ * This File Implements requests for MVC
+ *
+ */
+namespace core;
+
+use core\controllers\baseController;
+
+/**
+ *  Request Class called by index
+ *
+ */
+class request
+{
+    /**
+     * class variable
+     *
+     * @var baseController $controller
+     */
+    private $controller;
+    /**
+     * class variable
+     *
+     * @var $action
+     */
+    private $action;
+    /**
+     * class variable
+     *
+     * @var $params
+     */
+    protected $params;
+    /**
+     * Static variable to implement singleton pattern.
+     *
+     * @var static $obj
+     */
+    private static $obj;
+
+    /**
+     * request constructor.
+     */
+    private function __construct()
+    {
+    }
+
+    /**
+     * function clone.
+     * @return null
+     */
+    private function __clone()
+    {
+    }
+
+    /**
+     * function wakeup.
+     * @return null
+     */
+    public function __wakeup()
+    {
+    }
+
+    /**
+     * function getinstance.
+     * @return request
+     */
+    public static function getinstance()
+    {
+        if (!isset(self::$obj)) {
+            self::$obj = new request();
+        }
+        return self::$obj;
+    }
+
+    /**
+     * function setter.
+     * @return null
+     */
+    public function setter()
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $this->controller = $_REQUEST['getcontroller'];
+            $this->action = $_REQUEST['action'];
+            unset($_REQUEST['getcontroller']);
+            unset($_REQUEST['action']);
+            $this->params=$_REQUEST;
+            unset($_REQUEST);
+        }
+        else {
+            $this->controller = 'homeController';
+            $this->action='';
+            unset($_REQUEST);
+        }
+    }
+
+    /**
+     *function getter
+     * function get controller
+     * @return mixed
+     */
+    public function getController()
+    {
+        return $this->controller;
+    }
+
+    /**
+     * function getter
+     * @return mixed
+     */
+    public function getAction()
+    {
+        return $this->action;
+    }
+
+    /**
+     * function getter
+     * @return mixed
+     */
+    public function getParams()
+    {
+        return $this->params;
+    }
+
+    /**
+     * function setter.
+     * @param mixed $controller
+     * return null
+     */
+    public function setController($controller)
+    {
+        $this->controller = $controller;
+    }
+
+    /**
+     * function setter.
+     * @param mixed $action
+     * return null
+     */
+    public function setAction($action)
+    {
+        $this->action = $action;
+    }
+
+    /**
+     * function setter.
+     * @param mixed $params
+     * return null
+     */
+    public function setParams($params)
+    {
+        $this->params = $params;
+    }
+
+    /**
+     * function setter.
+     * @param mixed $obj
+     * return null
+     */
+    public static function setObj($obj)
+    {
+        self::$obj = $obj;
+    }
+}
+
+

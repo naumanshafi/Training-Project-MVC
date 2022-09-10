@@ -1,0 +1,97 @@
+<?php
+/**
+ *  query_builderTest File.
+ *
+ */
+use core\models\database\drivers\mysqli\query_builder;
+
+/**
+ *  query_builderTest Class.
+ *
+ */
+class query_builderTest extends \PHPUnit\Framework\TestCase
+{
+
+    /**
+     * function testadd.
+     * @return null
+     */
+    public function testadd()
+    {
+        $queryobj = new query_builder();
+        $entity = $this->createMock(\app\models\metadata\courseEntity::class);
+        $entity = $this->enitybuilder($entity,0,'tablename','course');
+        $entity = $this->enitybuilder($entity,1,'db',array("id","name", "hours","type"));
+        $entity = $this->enitybuilder($entity,2,'id',1213);
+        $entity = $this->enitybuilder($entity,3,'name','CP');
+        $entity = $this->enitybuilder($entity,4,'hours',3);
+        $entity = $this->enitybuilder($entity,5,'type','CS');
+        $actualQuery = "INSERT INTO course (id, name, hours, type) VALUES ('1213', 'CP', '3', 'CS')";
+        $this->assertSame($actualQuery, $queryobj->add($entity));
+    }
+
+    /**
+     * function testupdate.
+     * @return null
+     */
+    public function testupdate()
+    {
+        $queryobj = new query_builder();
+        $entity = $this->createMock(\app\models\metadata\courseEntity::class);
+        $entity = $this->enitybuilder($entity,0,'tablename','course');
+        $entity = $this->enitybuilder($entity,1,'db',array("id","name", "hours","type"));
+        $entity = $this->enitybuilder($entity,2,'id',1213);
+        $entity = $this->enitybuilder($entity,3,'name','CP');
+        $entity = $this->enitybuilder($entity,4,'hours',3);
+        $entity = $this->enitybuilder($entity,5,'type','CS');
+        $entity = $this->enitybuilder($entity,6,'id',1213);
+        $actualQuery = "UPDATE course SET id ='1213', name ='CP', hours ='3', type ='CS' WHERE id = 1213";
+        $this->assertSame($actualQuery, $queryobj->update($entity));
+    }
+
+    /**
+     * function testselect.
+     * @return null
+     */
+    public function testselect()
+    {
+        $queryobj = new query_builder();
+        $entity = $this->createMock(\app\models\metadata\courseEntity::class);
+        $entity = $this->enitybuilder($entity,0,'id','');
+        $entity = $this->enitybuilder($entity,1,'tablename','course');
+        $actualQuery = "Select * FROM course";
+        $this->assertSame($actualQuery, $queryobj->select($entity));
+    }
+
+    /**
+     * function testdelete.
+     * @return null
+     */
+    public function testdelete()
+    {
+        $queryobj = new query_builder();
+        $entity = $this->createMock(\app\models\metadata\courseEntity::class);
+        $entity = $this->enitybuilder($entity,0,'tablename','course');
+        $entity = $this->enitybuilder($entity,1,'id','1213');
+        $actualQuery = "DELETE FROM course where id ='1213'";
+        $this->assertSame($actualQuery, $queryobj->delete($entity));
+    }
+
+    /**
+     * function enitybuilder.
+     * @param $entity
+     * @param $index
+     * @param $arg
+     * @param $returnvalue
+     * @return object
+     */
+    public function enitybuilder ($entity, $index, $arg, $returnvalue)
+    {
+        $entity
+            ->expects($this->at($index))
+            ->method('getAttribute')
+            ->with($arg)
+            ->will($this->returnValue($returnvalue));
+        return $entity;
+    }
+}

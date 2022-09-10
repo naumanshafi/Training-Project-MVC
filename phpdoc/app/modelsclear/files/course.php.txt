@@ -1,0 +1,31 @@
+<?php
+/**
+ * This File Implements course for MVC
+ *
+ */
+namespace app\models;
+
+use app\models\metadata\courseEntity;
+use core\models\baseModel;
+
+/**
+ * This class Implements course for MVC
+ *
+ */
+class course extends baseModel
+{
+    /**
+     * class variable
+     *
+     * @var courseEntity $studentEntity
+     */
+    public $studentEntity;
+
+    /**
+     * student constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct('courseEntity');
+    }
+}
